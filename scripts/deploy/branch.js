@@ -65,3 +65,12 @@ glob(`${BASE}/**/*.*`, (err, files) => {
 
   files.map(transform).forEach(upload)
 })
+
+/**
+ * Log
+ */
+const { execSync } = require('child_process')
+
+execSync('cat packages/react-impression-website/dist/index.html', {
+  stdio: 'inherit',
+})
