@@ -4,8 +4,9 @@
 const qiniu = require('qiniu')
 
 const config = new qiniu.conf.Config()
-config.useHttpsDomain = true
-config.useCdnDomain = true
+config.zone = qiniu.zone.Zone_na0
+// config.useHttpsDomain = true
+// config.useCdnDomain = true
 
 const { ACCESS_KEY, SECRET_KEY, BUCKET } = process.env
 const mac = new qiniu.auth.digest.Mac(ACCESS_KEY, SECRET_KEY)
