@@ -10,7 +10,9 @@ config.useCdnDomain = true
 
 const { ACCESS_KEY, SECRET_KEY, BUCKET } = process.env
 const mac = new qiniu.auth.digest.Mac(ACCESS_KEY, SECRET_KEY)
-const putPolicy = new qiniu.rs.PutPolicy({ scope: BUCKET })
+const putPolicy = new qiniu.rs.PutPolicy({
+  scope: `${BUCKET}:react-impression/index.html`,
+})
 const uploadToken = putPolicy.uploadToken(mac)
 
 /**
