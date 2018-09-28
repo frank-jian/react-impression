@@ -12,11 +12,16 @@ script:
 cache:
   yarn: true
 after_success:
-  - node scripts/deploy.js
+  - node scripts/deploy/pull-request.js
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github-token: $GITHUB_TOKEN
-  on:
-    branch: next
-  local-dir: packages/react-impression-website/dist
+  - provider: pages
+    skip_cleanup: true
+    github-token: $GITHUB_TOKEN
+    on:
+      branch: next
+    local-dir: packages/react-impression-website/dist
+  - provider: script
+    skip_cleanup: true
+    script: node scripts/deploy/branch.js
+    on:
+      branch: qiniu
