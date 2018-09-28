@@ -5,8 +5,8 @@ const qiniu = require('qiniu')
 
 const config = new qiniu.conf.Config()
 config.zone = qiniu.zone.Zone_z0
-// config.useHttpsDomain = true
-// config.useCdnDomain = true
+config.useHttpsDomain = true
+config.useCdnDomain = true
 
 const { ACCESS_KEY, SECRET_KEY, BUCKET } = process.env
 const mac = new qiniu.auth.digest.Mac(ACCESS_KEY, SECRET_KEY)
@@ -34,8 +34,8 @@ const upload = file =>
       if (info.statusCode === 200) {
         console.log('Upload success: ', file.key)
       } else {
-        console.log('Upload failure: ', `${info.statusCode} ${body.error}`)
-        console.log('                ', file.key)
+        console.log('Upload failure: ', file.key)
+        console.log('                ', `${info.statusCode} ${body.error}`)
       }
     }
   )
