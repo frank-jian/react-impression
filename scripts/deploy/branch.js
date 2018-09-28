@@ -4,7 +4,7 @@
 const qiniu = require('qiniu')
 
 const config = new qiniu.conf.Config()
-config.zone = qiniu.zone.Zone_na0
+config.zone = qiniu.zone.Zone_z0
 // config.useHttpsDomain = true
 // config.useCdnDomain = true
 
