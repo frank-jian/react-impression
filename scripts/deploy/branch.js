@@ -10,10 +10,12 @@ config.useCdnDomain = true
 
 const { ACCESS_KEY, SECRET_KEY, BUCKET } = process.env
 const mac = new qiniu.auth.digest.Mac(ACCESS_KEY, SECRET_KEY)
-const putPolicy = new qiniu.rs.PutPolicy({
-  scope: `${BUCKET}:react-impression/index.html`,
-})
-const uploadToken = putPolicy.uploadToken(mac)
+const getUploadToken = key => {
+  const overwrite = 'react-impression/index.html'
+  const scope = `${BUCKET}${key === overwrite ? `:${overwrite}` : ''}`
+
+  return new qiniu.rs.PutPolicy({ scope }).uploadToken(mac)
+}
 
 /**
  * Upload
@@ -23,7 +25,7 @@ const putExtra = new qiniu.form_up.PutExtra()
 
 const upload = file =>
   formUploader.putFile(
-    uploadToken,
+    getUploadToken(file.key),
     file.key,
     file.localFile,
     putExtra,
